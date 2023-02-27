@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Zzz.Buffers
+{
+    public static class BufferExtensions
+    {
+        public static ArraySegment<byte> GetArray(this Memory<byte> memory)
+        {
+            return ((ReadOnlyMemory<byte>)memory).GetArray();
+        }
+
+        public static ArraySegment<byte> GetArray(this ReadOnlyMemory<byte> memory)
+        {
+            if (!MemoryMarshal.TryGetArray(memory, out var result))
+            {
+                throw new InvalidOperationException("Buffer backed by array was expected");
+            }
+            return result;
+        }
+    }
+}

@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Zzz.Host
 {
-    public class HostedService : IHostedService
+    public class HostedService : IHostedService, IAsyncDisposable
     {
+        public ValueTask DisposeAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task StartAsync(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
