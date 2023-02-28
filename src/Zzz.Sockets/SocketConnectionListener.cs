@@ -1,14 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net.Sockets;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Zzz.Exceptions;
+using System.Net.Sockets;
 using Zzz.Connections;
+using Zzz.Exceptions;
 using Zzz.Sockets.Internal;
 
 namespace Zzz.Sockets
@@ -110,5 +105,4 @@ namespace Zzz.Sockets
             return default;
         }
     }
-
 }

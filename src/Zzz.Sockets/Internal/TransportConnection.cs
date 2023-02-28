@@ -34,7 +34,6 @@ internal abstract partial class TransportConnection : ConnectionContext
         set => _connectionId = value;
     }
 
-
     public virtual MemoryPool<byte> MemoryPool { get; } = default!;
 
     public override IDuplexPipe Transport { get; set; } = default!;

@@ -1,7 +1,6 @@
 ﻿using System.IO.Pipelines;
 using System.Net;
 using Zzz.Exceptions;
-using Zzz.Features;
 
 namespace Zzz.Connections
 {

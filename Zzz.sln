@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zzz.Buffers", "src\Zzz.Buff
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zzz.Sockets", "src\Zzz.Sockets\Zzz.Sockets.csproj", "{6B239CAC-A997-4538-B568-65D7477C209E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zzz.Features", "src\Zzz.Features\Zzz.Features.csproj", "{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zzz.Features", "src\Zzz.Features\Zzz.Features.csproj", "{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zzz.Hosting", "src\Zzz.Hosting\Zzz.Hosting.csproj", "{64F861BB-B232-438E-A4CA-D364A74496E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64F861BB-B232-438E-A4CA-D364A74496E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F861BB-B232-438E-A4CA-D364A74496E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64F861BB-B232-438E-A4CA-D364A74496E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64F861BB-B232-438E-A4CA-D364A74496E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{5A223CE0-2F6F-409F-9204-F64097C2AA0D} = {3A5ED15D-02EF-4EE1-A100-FB032EA61AFD}
 		{6B239CAC-A997-4538-B568-65D7477C209E} = {3A5ED15D-02EF-4EE1-A100-FB032EA61AFD}
 		{3E5D2CAA-69A1-4F26-9D40-EEEDF4FD9A16} = {3A5ED15D-02EF-4EE1-A100-FB032EA61AFD}
+		{64F861BB-B232-438E-A4CA-D364A74496E0} = {3A5ED15D-02EF-4EE1-A100-FB032EA61AFD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DD86742-DF62-41F5-B77C-82E799873C9F}
