@@ -2,11 +2,11 @@
 
 namespace Zzz.Servers
 {
-    public interface IServer : IDisposable
+    public interface IServer : IAsyncDisposable
     {
         IFeatureCollection Features { get; }
 
-        Task StartAsync<TContext>(CancellationToken cancellationToken) where TContext : notnull;
+        Task StartAsync(CancellationToken cancellationToken);
 
         Task StopAsync(CancellationToken cancellationToken);
     }
