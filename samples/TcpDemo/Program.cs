@@ -8,7 +8,10 @@ namespace TcpDemo
         public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder()
-                .ConfigureZzz()
+                .ConfigureZzz(i => 
+                {
+                    
+                })
                 .Build();
 
             await host.RunAsync();

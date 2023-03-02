@@ -19,7 +19,7 @@ namespace Zzz
 
         public async ValueTask DisposeAsync()
         {
-            await StopAsync().ConfigureAwait(false);
+            await StopAsync(new CancellationToken(canceled: true)).ConfigureAwait(false);
         }
 
         public Task StartAsync(CancellationToken cancellationToken = default)
