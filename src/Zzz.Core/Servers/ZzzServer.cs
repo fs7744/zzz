@@ -1,16 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO.Pipelines;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zzz.Abstractions.Servers;
 using Zzz.Connections;
-using Zzz.Features;
 using Zzz.Servers;
 
 namespace Zzz.Core.Servers
@@ -23,8 +15,9 @@ namespace Zzz.Core.Servers
         private readonly CancellationTokenSource _stopCts = new CancellationTokenSource();
         private readonly TaskCompletionSource _stoppedTcs = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         private readonly ServiceContext _serviceContext;
+        private readonly TransportManager _transportManager;
 
-        public ZzzServer(ServerOptions serverOptions, ILoggerFactory loggerFactory, DiagnosticSource? diagnosticSource)
+        public ZzzServer(ServerOptions serverOptions, IEnumerable<IConnectionListenerFactory> transportFactories, ILoggerFactory loggerFactory, DiagnosticSource? diagnosticSource)
         {
             var trace = new ZzzTrace(loggerFactory);
             var connectionManager = new ConnectionManager(
@@ -47,8 +40,8 @@ namespace Zzz.Core.Servers
                 ServerOptions = serverOptions,
                 DiagnosticSource = diagnosticSource
             };
+            _transportManager = new TransportManager(transportFactories.ToList(), _serviceContext);
         }
-
 
         public async ValueTask DisposeAsync()
         {
@@ -64,7 +57,7 @@ namespace Zzz.Core.Servers
                     throw new InvalidOperationException("Server already started");
                 }
                 _hasStarted = true;
-                
+
                 _serviceContext.Heartbeat?.Start();
 
                 await BindAsync(cancellationToken).ConfigureAwait(false);
@@ -84,22 +77,16 @@ namespace Zzz.Core.Servers
             {
                 if (_stopping == 1)
                 {
-                    throw new InvalidOperationException("Kestrel has already been stopped.");
+                    throw new InvalidOperationException("Zzz has already been stopped.");
                 }
 
-                //IChangeToken? reloadToken = null;
-
-                //_serverAddresses.InternalCollection.PreventPublicMutation();
-
-                //if (Options.ConfigurationLoader?.ReloadOnChange == true && (!_serverAddresses.PreferHostingUrls || _serverAddresses.InternalCollection.Count == 0))
-                //{
-                //    reloadToken = Options.ConfigurationLoader.Configuration.GetReloadToken();
-                //}
-
-                //Options.ConfigurationLoader?.Load();
-
-                //await AddressBinder.BindAsync(Options.ListenOptions, AddressBindContext!, cancellationToken).ConfigureAwait(false);
-                //_configChangedRegistration = reloadToken?.RegisterChangeCallback(TriggerRebind, this);
+                foreach (var listenOptions in _serviceContext.ServerOptions.ListenOptions)
+                {
+                    foreach (var endPoint in listenOptions.EndPoints)
+                    {
+                        await _transportManager.BindAsync(endPoint, listenOptions.ConnectionDelegate, cancellationToken);
+                    }
+                }
             }
             finally
             {
@@ -123,7 +110,7 @@ namespace Zzz.Core.Servers
 
             try
             {
-                //await _transportManager.StopAsync(cancellationToken).ConfigureAwait(false);
+                await _transportManager.StopAsync(cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
@@ -132,8 +119,7 @@ namespace Zzz.Core.Servers
             }
             finally
             {
-                //ServiceContext.Heartbeat?.Dispose();
-                //_configChangedRegistration?.Dispose();
+                _serviceContext.Heartbeat?.Dispose();
                 _stopCts.Dispose();
                 _bindSemaphore.Release();
             }

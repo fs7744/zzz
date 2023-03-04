@@ -1,6 +1,4 @@
-﻿using Zzz.Features;
-
-namespace Zzz.Servers
+﻿namespace Zzz.Servers
 {
     public interface IServer : IAsyncDisposable
     {

@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zzz.Connections;
 
 namespace Zzz.Core.Servers
 {
-    internal abstract class ZzzConnection 
-        //: IConnectionHeartbeatFeature, IConnectionCompleteFeature, IConnectionLifetimeNotificationFeature
+    internal abstract class ZzzConnection
+    //: IConnectionHeartbeatFeature, IConnectionCompleteFeature, IConnectionLifetimeNotificationFeature
     {
         private List<(Action<object> handler, object state)>? _heartbeatHandlers;
         private readonly object _heartbeatLock = new object();

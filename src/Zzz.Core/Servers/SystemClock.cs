@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zzz.Core.Servers
+﻿namespace Zzz.Core.Servers
 {
     internal sealed class SystemClock : ISystemClock
     {
@@ -23,5 +17,4 @@ namespace Zzz.Core.Servers
         /// </summary>
         public DateTimeOffset UtcNowUnsynchronized => DateTimeOffset.UtcNow;
     }
-
 }

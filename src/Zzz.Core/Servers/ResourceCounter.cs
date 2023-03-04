@@ -1,23 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Zzz.Core.Servers
 {
     internal abstract class ResourceCounter
     {
         public abstract bool TryLockOne();
+
         public abstract void ReleaseOne();
 
         public static ResourceCounter Unlimited { get; } = new UnlimitedCounter();
+
         public static ResourceCounter Quota(long amount) => new FiniteCounter(amount);
 
         private sealed class UnlimitedCounter : ResourceCounter
         {
             public override bool TryLockOne() => true;
+
             public override void ReleaseOne()
             {
             }

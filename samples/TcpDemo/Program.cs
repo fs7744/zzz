@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
 namespace TcpDemo
 {
@@ -8,9 +7,8 @@ namespace TcpDemo
         public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder()
-                .ConfigureZzz(i => 
+                .ConfigureZzz(i =>
                 {
-                    
                 })
                 .Build();
 
