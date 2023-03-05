@@ -1,4 +1,4 @@
-﻿namespace Zzz.Abstractions.Servers
+﻿namespace Zzz.Servers
 {
     public class ServerOptions
     {

@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using System.IO.Pipelines;
-using Zzz.Abstractions.Servers;
+﻿using System.IO.Pipelines;
+using Zzz.Servers;
 
 namespace Zzz.Core.Servers
 {
@@ -17,7 +16,5 @@ namespace Zzz.Core.Servers
         public Heartbeat Heartbeat { get; set; } = default!;
 
         public ServerOptions ServerOptions { get; set; } = default!;
-
-        public DiagnosticSource? DiagnosticSource { get; set; }
     }
 }

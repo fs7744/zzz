@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using System.IO.Pipelines;
-using Zzz.Abstractions.Servers;
 using Zzz.Connections;
 using Zzz.Servers;
 
@@ -17,7 +15,7 @@ namespace Zzz.Core.Servers
         private readonly ServiceContext _serviceContext;
         private readonly TransportManager _transportManager;
 
-        public ZzzServer(ServerOptions serverOptions, IEnumerable<IConnectionListenerFactory> transportFactories, ILoggerFactory loggerFactory, DiagnosticSource? diagnosticSource)
+        public ZzzServer(ServerOptions serverOptions, IEnumerable<IConnectionListenerFactory> transportFactories, ILoggerFactory loggerFactory)
         {
             var trace = new ZzzTrace(loggerFactory);
             var connectionManager = new ConnectionManager(
@@ -37,8 +35,7 @@ namespace Zzz.Core.Servers
                 SystemClock = heartbeatManager,
                 ConnectionManager = connectionManager,
                 Heartbeat = heartbeat,
-                ServerOptions = serverOptions,
-                DiagnosticSource = diagnosticSource
+                ServerOptions = serverOptions
             };
             _transportManager = new TransportManager(transportFactories.ToList(), _serviceContext);
         }

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Zzz.Connections;
 
-namespace Zzz.Abstractions.Servers
+namespace Zzz.Servers
 {
     public class ListenOptions
     {

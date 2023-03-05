@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Zzz;
-using Zzz.Abstractions.Servers;
 using Zzz.Connections;
 using Zzz.Core.Servers;
 using Zzz.Servers;
@@ -10,17 +10,17 @@ namespace Microsoft.Extensions.Hosting
 {
     public static class HostExtensions
     {
-        public static IHostBuilder ConfigureZzz(this IHostBuilder hostBuilder, Action<ServerOptions> action)
+        public static IHostBuilder ConfigureZzz(this IHostBuilder hostBuilder, Action<ServerOptionsBuilder> action)
         {
             hostBuilder.ConfigureServices((hostContext, services) =>
              {
-                 ServerOptions serverOptions = new();
+                 ServerOptionsBuilder serverOptions = new(services);
                  action?.Invoke(serverOptions);
-                 services.AddSingleton(serverOptions);
+                 services.AddSingleton((serviceProvider) => serverOptions.Build(serviceProvider));
                  services.PostConfigure<SocketTransportOptions>(opt => { });
-                 services.AddSingleton<IConnectionFactory, SocketConnectionFactory>();
-                 services.AddSingleton<IConnectionListenerFactory, SocketTransportFactory>();
-                 services.AddSingleton<IServer, ZzzServer>();
+                 services.TryAddSingleton<IConnectionFactory, SocketConnectionFactory>();
+                 services.TryAddSingleton<IConnectionListenerFactory, SocketTransportFactory>();
+                 services.TryAddSingleton<IServer, ZzzServer>();
                  services.AddHostedService<HostedService>();
              });
             return hostBuilder;

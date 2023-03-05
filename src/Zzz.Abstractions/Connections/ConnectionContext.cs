@@ -9,7 +9,8 @@ namespace Zzz.Connections
         public abstract IDuplexPipe Transport { get; set; }
 
         public abstract string ConnectionId { get; set; }
-        //public abstract IFeatureCollection Features { get; }
+
+        //public abstract IServiceProvider ServiceProvider { get; }
 
         public abstract IDictionary<object, object?> Items { get; set; }
 
